@@ -149,5 +149,3 @@ endfunction
 
 command! -bar -nargs=0 TestingForTabsidebar :call s:main()
 
-nnoremap <nowait><space>   :<C-u>TestingForTabsidebar<cr>
-
