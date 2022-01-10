@@ -5,7 +5,7 @@ if !has('tabsidebar')
 	finish
 endif
 
-function! s:main() abort
+function! s:show_popupwins() abort
 	let saved_showtabsidebar = &showtabsidebar
 	let saved_tabsidebarcolumns = &tabsidebarcolumns
 	let saved_showtabline = &showtabline
@@ -155,5 +155,11 @@ function! s:main() abort
 	endtry
 endfunction
 
-command! -bar -nargs=0 TestingForTabsidebar :call s:main()
+function! s:term_in_popupwin() abort
+	let bnr = term_start(&shell, { 'hidden': 1, 'term_finish': 'close', })
+	call popup_create(bnr, { 'minwidth': &columns / 2, 'minheight': &lines / 3, })
+endfunction
+
+command! -bar -nargs=0 TestingForTabsidebarShowPopupwins  :call s:show_popupwins()
+command! -bar -nargs=0 TestingForTabsidebarTermInPopupwin :call s:term_in_popupwin()
 
