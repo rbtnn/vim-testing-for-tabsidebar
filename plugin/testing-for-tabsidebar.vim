@@ -144,7 +144,7 @@ function! s:show_popupwins() abort
 
 	finally
 		redraw
-		echo 'Is this Okey?'
+		echo 'Is this okey?'
 		call getchar()
 		tabclose
 		call popup_clear()
@@ -156,8 +156,25 @@ function! s:show_popupwins() abort
 endfunction
 
 function! s:term_in_popupwin() abort
-	let bnr = term_start(&shell, { 'hidden': 1, 'term_finish': 'close', })
-	call popup_create(bnr, { 'minwidth': &columns / 2, 'minheight': &lines / 3, })
+	let bnr = term_start(&shell, {
+		\   'hidden': 1,
+		\   'term_finish': 'close',
+		\ })
+	call popup_create(bnr, {
+		\   'minwidth': &columns / 2,
+		\   'maxwidth': &columns / 2,
+		\   'minheight': &lines / 3,
+		\   'maxheight': &lines / 3,
+		\   'border': [],
+		\   'padding': [],
+		\   'title': ' ' .. &shell .. ' ',
+		\   'highlight': 'Normal',
+		\   'borderhighlight': ['Normal', 'Normal', 'Normal', 'Normal'],
+		\   'borderchars': (&ambiwidth == 'double')
+		\     ? [nr2char(0x2500), nr2char(0x2502), nr2char(0x2500), nr2char(0x2502),
+		\        nr2char(0x250c), nr2char(0x2510), nr2char(0x2518), nr2char(0x2514)]
+		\     : [],
+		\ })
 endfunction
 
 command! -bar -nargs=0 TestingForTabsidebarShowPopupwins  :call s:show_popupwins()
