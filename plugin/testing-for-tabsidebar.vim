@@ -166,13 +166,13 @@ function! s:term_in_popupwin() abort
 		\   'minheight': &lines / 3,
 		\   'maxheight': &lines / 3,
 		\   'border': [],
-		\   'padding': [],
+		\   'padding': repeat(has('win32') ? [1] : [0], 4),
 		\   'title': ' ' .. &shell .. ' ',
+		\   'highlight': 'Normal',
 		\   'borderhighlight': ['Normal', 'Normal', 'Normal', 'Normal'],
-		\   'borderchars': (&ambiwidth == 'single' && &encoding == 'utf-8')
-		\     ? [nr2char(0x2500), nr2char(0x2502), nr2char(0x2500), nr2char(0x2502),
-		\        nr2char(0x250c), nr2char(0x2510), nr2char(0x2518), nr2char(0x2514)]
-		\     : [],
+		\   'borderchars': [
+		\      nr2char(0x2500), nr2char(0x2502), nr2char(0x2500), nr2char(0x2502),
+		\      nr2char(0x250c), nr2char(0x2510), nr2char(0x2518), nr2char(0x2514)]
 		\ })
 endfunction
 
